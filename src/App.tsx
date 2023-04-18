@@ -8,27 +8,23 @@ function App() {
 
   return (
     <div className="App">
+
+      <header><div><h1>Конвертер</h1> <img src="" alt="square" /></div></header>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className='Convertation'>
+        <div className='Input'><div>из <input list='types'/></div><button>Скопировать</button><textarea name="in" id="input" cols="30" rows="10"></textarea></div>
+        <div className='Output'><div>в <input list='types'/> <button>Скачать</button><textarea name="out" id="output" cols="30" rows="10"></textarea></div></div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+
+      <div className='Params'>Параметры конвертации</div>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
+      <datalist id='types'>
+        <option value="JSON" />
+        <option value="Another" />
+      </datalist>
     </div>
+    
   )
 }
 
