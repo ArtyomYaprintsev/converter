@@ -1,42 +1,95 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  margin: 0;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+body {
+  margin: 0%;
+  padding: 0%;
+  width: 100%;
+  height: 100%;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+header {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  padding-top: 21px;
+  padding-left: 40px;
+  height: 74px;
+  width: 100%;
+  background-color: black;
+  color: white;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+h1 {
+  margin: 0;
+  font-weight: 500;
 }
 
-.card {
-  padding: 2em;
+main {
+  position: absolute;
+  top: 74px;
+  bottom: 69px;
+  display: flex;
+  justify-content: space-around;
 }
 
-.read-the-docs {
-  color: #888;
+
+.Column {
+  float: left;
+  width: 33.33%;
+  margin: 1px;
+  padding-top: 15px;
+  padding-right: 33.5px;
+  padding-left: 41px;
+  height: auto;
+  background-color: white;
+}
+
+.Text {
+  margin: 6px;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 26px;
+  color: #c2c2c2;
+}
+
+select{
+  background-color: #4e4e4e;
+  color: white;
+}
+
+textarea {
+  resize: none;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  height: 69px;
+  width: 100%;
+  display: flex;
+}
+
+button {
+  border: none;
+  height: 6;
+}
+
+.Convert {
+  float: left;
+  width: 66.67%;
+}
+
+.Inactive {}
+
+.Active {}
+
+.Apply {
+  background-color: black;
+  color: white;
+  float: right;
+  width: 33.33%
 }
