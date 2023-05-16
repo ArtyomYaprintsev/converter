@@ -51,13 +51,15 @@ function App() {
   return (
     <div className="App">
       <header>
-        <div>
-          <h1>Конвертер</h1>
+        <div className="Logo">
+          <div className="Title">Конвертер</div>
+          <div className="RedStripe"></div>
         </div>
       </header>
       <main>
         <div className="Input Column">
-          <div>
+          <div className="Container">
+            <div>
             <span className="Text">из</span>
             <select id="types">
               <option value="JSON" selected>
@@ -65,11 +67,14 @@ function App() {
               </option>
               <option value="Another">Another</option>
             </select>
+            </div>
+            <textarea name="in" id="in" cols="30" rows="30" autoComplete="on" autoFocus ref={ref}/>
           </div>
-          <textarea name="in" id="in" cols="30" rows="30" autoComplete="on" autoFocus ref={ref}/>
         </div>
         <div className="Output Column">
-          <div><span className="Text">в</span>
+          <div className="Container">
+            <div>
+            <span className="Text">в</span>
             <select id="types">
               <option value="JSON" selected>
                 JSON
@@ -77,6 +82,8 @@ function App() {
               <option value="Another">Another</option>
             </select>
             <button>Скачать</button><button>Скопировать</button>
+            </div>
+            
             <textarea name="out" id="output" cols="30" rows="30" autoComplete="on" readOnly/>
           </div>
         </div>
