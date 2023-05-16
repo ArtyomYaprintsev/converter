@@ -1,8 +1,4 @@
-#root {
-  margin: 0;
-  line-height: 100%;
-}
-
+/* Общие стили */
 body {
   margin: 0%;
   padding: 0%;
@@ -14,13 +10,12 @@ body {
   display: flex;
   flex-flow: column;
   min-height: 100vh;
-  /* justify-content: flex-start; */
   height: 100%;
   width: 100%;
-  /* font-size: 0.8em; */
   font-size: 2vh;
 }
 
+/* Главный хеддер сайта */
 header {
   margin: 0;
   width: 100%;
@@ -33,47 +28,64 @@ header {
 }
 
 .Logo {
-  margin-top: 0.7%;
-  margin-left: 3%;
+  margin-top: 2.5vh;
+  margin-left: 2.1vw;
+  display: flex;
+  flex-flow: column;
 }
 
+.RedStripe {
+  background-image: url(assets/RedStripe.svg);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: 100%;
+  aspect-ratio: 1/4;
+  height: 5.4%;
+  width: 13%;
+  margin-top: 0.2vh;
+}
+
+/* Общие стили для фунционального блока сайта*/
 main {
   display: flex;
-  justify-content: space-around;
-  width: 100%;
+  margin-top: auto;
   flex-grow: 1;
+  min-width: 100%;
+  flex-flow: row;
   background-color: white;
 }
-
-
-.Column {
-  float: left;
-  width: 33.33%;
-  
-  padding-top: 1%;
-  padding-right: 2%;
-  padding-left: 3%;
-  background-color: white;
-}
-
-/* .Text {
-  margin: 6px;
-  font-weight: 500;
-  line-height: 26px;
-  color: #c2c2c2;
-} */
 
 select{
   background-color: #4e4e4e;
   color: white;
+  margin-right: 1.1vw;
+  border: none;
+}
+
+select > option {
+  font-weight: 500;
+}
+
+#FromTypes {
+  padding-top: 1.4vh;
+  padding-bottom: 1.4vh;
+}
+
+#ToTypes {
+  padding-top: 1.4vh;
+  padding-bottom: 1.4vh;
 }
 
 textarea {
   resize: none;
-  height: 100%;
-  border: 0;
-  padding: 1%;
+  border: none;
+  padding: 1vh;
   font-size: 2vh;
+  font-family: Roboto;
+  background-color: #F6F6F6;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 textarea:focus {
@@ -82,51 +94,137 @@ textarea:focus {
   outline: none;
 }
 
-footer {
-  margin-top: auto;
-  padding: 0;
-  width: 100%;
-  display: flex;
-  height: 6.5vh;
-  align-self: flex-end;
-}
-
 button {
   border: none;
   font-size: 2vh;
-  padding: 0.3% 2%;
-  /* height: 6; */
+}
+
+/* Основной левый блок с конвертацией */
+.LeftSide {
+  flex-grow: 1;
+  display: flex;
+  flex-flow: column;
+}
+
+.LeftSide .Content {
+  flex-grow: 1;
+  display: flex;
+  flex-flow: row;
+}
+
+.LeftSide .Block {
+  width: 35.1vw;
+}
+
+.LeftSide .Block .Header {
+  display: flex;
+  flex-flow: row;
+  padding-top: 1.4vh;
+  padding-bottom: 1.4vh;
+  align-items: center;
+}
+
+.LeftSide .Block .Button {
+  margin-right: 1.1vw;
+  padding-top: 1.4vh;
+  padding-bottom: 1.4vh;
+}
+
+.LeftSide .Block .Header .Text {
+  text-align: center;
+  font-weight: 500;
+  color: #C2C2C2;
+  margin-right: 0.7vw;
+}
+
+.LeftSide .Input .Container {
+  margin-left: 2.1vw;
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+.LeftSide .Input .Container .Body {
+  margin-top: auto;
+  flex-grow: 1;
+  padding-bottom: 2.7vh;
+}
+
+.LeftSide .BetweenStripe {
+  flex-grow: 1;
+  background-color: aqua;
+}
+
+.LeftSide .Output {
+  margin-left: auto;
+}
+
+.LeftSide .Output .Container {
+  margin-left: 0.4vw;
+  margin-right: 1.4vw;
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+.LeftSide .Output .Container .Body {
+  margin-top: auto;
+  flex-grow: 1;
+  padding-bottom: 2.7vh;
+}
+
+/* Правый сайдбар с параметрами настроек */
+.RightSide {
+  width: 27.1vw;
+  margin-left: auto;
+  display: flex;
+  flex-flow: column;
+  border-left: 0.15vw solid #1e1e1e; 
+}
+
+.RightSide .Container {
+  display: flex;
+  flex-flow: column;
+  margin-left: 1.5vw;
+  margin-right: 1.5vw;
+}
+
+.RightSide .Header {
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+  border-bottom: 0.15vh solid #ECECEC;
+  font-weight: 500;
+}
+
+.RightSide .Body {
+  padding-top: 2vh;
+}
+
+.Apply {
+  background-color: black;
+  color: white;
+  width: 100%;
+}
+
+/* Футер */
+.Footer {
+  margin-top: auto;
+}
+
+.Footer .Button {
+  padding-top: 2vh;
+  padding-bottom: 2vh; 
 }
 
 .Convert {
-  float: left;
-  width: 80%;
+  width: 100%;
 }
 
 .Inactive {}
 
 .Active {}
 
-.Apply {
-  background-color: black;
-  color: white;
-  float: right;
-  width: 26.1%;
-}
 
-.Params{
-  width: 20%;
-  border-left: 0.2vw solid black;
-}
-
-.Container {
-  margin: 1%;
-  height: 50%;
-  width: 100%;
-  display: flex;
-  flex-flow: column;
-  
-}
 
 #types {
   font-size: 2vh;

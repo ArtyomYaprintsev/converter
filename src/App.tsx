@@ -57,42 +57,76 @@ function App() {
         </div>
       </header>
       <main>
-        <div className="Input Column">
-          <div className="Container">
-            <div>
-            <span className="Text">из</span>
-            <select id="types">
-              <option value="JSON" selected>
-                JSON
-              </option>
-              <option value="Another">Another</option>
-            </select>
+        <div className="LeftSide">
+          <div className="Content">
+            <div className="Input Block">
+              <div className="Container">
+                <div className="Header">
+                  <span className="Text">из</span>
+                  <select id="FromTypes">
+                    <option value="JSON" selected>
+                      JSON
+                    </option>
+                    <option value="Another">
+                      Another
+                    </option>
+                  </select>
+                </div>
+                <div className="Body">
+                  <textarea className="TextArea" name="in" id="in" autoComplete="on" autoFocus ref={ref}/>
+                </div>
+              </div>
             </div>
-            <textarea name="in" id="in" cols="30" rows="30" autoComplete="on" autoFocus ref={ref}/>
+            <div className="BetweenStripe">
+              <div className="Stripe"></div>
+              <div className="Arrow"></div>
+              <div className="Stripe"></div>
+            </div>
+            <div className="Output Block">
+              <div className="Container">
+                <div className="Header">
+                  <span className="Text">в</span>
+                  <select id="ToTypes">
+                    <option value="JSON" selected>
+                      JSON
+                    </option>
+                    <option value="Another">
+                      Another
+                    </option>
+                  </select>
+                  <button className="Download Button">
+                    Скачать
+                  </button>
+                  <button className="Copy Button">
+                    Скопировать
+                  </button>
+                </div>
+                <div className="Body">
+                  <textarea className="TextArea" name="out" id="output" autoComplete="on" readOnly/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="Footer">
+            <button className="Convert Button Inactive" onClick={Convert}>Конвертировать</button>
           </div>
         </div>
-        <div className="Output Column">
-          <div className="Container">
-            <div>
-            <span className="Text">в</span>
-            <select id="types">
-              <option value="JSON" selected>
-                JSON
-              </option>
-              <option value="Another">Another</option>
-            </select>
-            <button>Скачать</button><button>Скопировать</button>
+        <div className="RightSide">
+          <div className="Content">
+            <div className="Container">
+              <div className="Header">
+                Параметры конвертации
+              </div>
+              <div className="Body">
+                Контент блока
+              </div>
             </div>
-            
-            <textarea name="out" id="output" cols="30" rows="30" autoComplete="on" readOnly/>
+          </div>
+          <div className="Footer">
+            <button className="Apply Button">Применить</button>
           </div>
         </div>
-        <div className="Params Column">Параметры конвертации</div>
       </main>
-      <footer>
-        <button className="Convert Button Inactive" onClick={Convert}>Конвертировать</button>
-        <button className="Apply Button">Применить</button>
-      </footer>
     </div>
   );
 }
