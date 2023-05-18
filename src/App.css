@@ -222,6 +222,7 @@ button {
   display: flex;
   flex-flow: column;
   align-items: center;
+  opacity: 0.6;
 }
 
 .LeftSide .BetweenStripe .FirstStripe {
@@ -247,7 +248,7 @@ button {
   margin-left: auto;
   display: flex;
   flex-flow: column;
-  border-left: 0.15vw solid #1e1e1e; 
+  border-left: 0.15vw solid #878787; 
 }
 
 .RightSide .Container {
