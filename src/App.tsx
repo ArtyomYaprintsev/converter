@@ -78,9 +78,9 @@ function App() {
               </div>
             </div>
             <div className="BetweenStripe">
-              <div className="Stripe"></div>
+              <div className="FirstStripe"></div>
               <div className="Arrow"></div>
-              <div className="Stripe"></div>
+              <div className="SecondStripe"></div>
             </div>
             <div className="Output Block">
               <div className="Container">
@@ -95,10 +95,12 @@ function App() {
                     </option>
                   </select>
                   <button className="Download Button">
-                    Скачать
+                    <div className="Icon"></div>
+                    <span className="Title">Скачать</span>
                   </button>
                   <button className="Copy Button">
-                    Скопировать
+                    <div className="Icon"></div>
+                    <span className="Title">Скопировать</span>
                   </button>
                 </div>
                 <div className="Body">
