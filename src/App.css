@@ -151,11 +151,6 @@ button {
   padding-bottom: 2.7vh;
 }
 
-.LeftSide .BetweenStripe {
-  flex-grow: 1;
-  background-color: aqua;
-}
-
 .LeftSide .Output {
   margin-left: auto;
 }
@@ -174,13 +169,87 @@ button {
   padding-bottom: 2.7vh;
 }
 
+.LeftSide .Inactive {
+  background-color: #878787;
+  color: #9D9D9D;
+  font-weight: 600;
+  border-top: 0.3vh solid #878787;
+  width: 100%;
+}
+
+.LeftSide .Copy {
+  display: flex;
+  flex-flow: row;
+  padding-left: 0.8vw;
+  padding-right: 0.8vw;
+  background-color: #F4F4F4;
+  color: #E6E6E6;
+  align-items: center;
+}
+
+.LeftSide .Copy .Icon {
+  content: url(./assets/CopyIcon.svg);
+  height: 5.4%;
+  width: 13%;
+}
+
+.LeftSide .Copy .Title {
+  margin-left: 0.5vw;
+}
+
+.LeftSide .Download {
+  display: flex;
+  flex-flow: row;
+  padding-left: 0.8vw;
+  padding-right: 0.8vw;
+  background-color: #F4F4F4;
+  color: #E6E6E6;
+  align-items: center;
+}
+
+.LeftSide .Download .Title {
+  margin-left: 0.5vw;
+}
+
+.LeftSide .Download .Icon {
+  content: url(./assets/DownloadIcon.svg);
+  height: 10%;
+  width: 20%;
+}
+
+/* Разделяющий див со стрелкой – BetweenStripe */
+.LeftSide .BetweenStripe{
+  flex-grow: 1;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  opacity: 0.6;
+}
+
+.LeftSide .BetweenStripe .FirstStripe {
+  content: url(./assets/FirstStripe.svg);
+  width: 0.13vw;
+}
+
+.LeftSide .BetweenStripe .Arrow {
+  content: url(./assets/Arrow.svg);
+  width: 2.5vw;
+
+}
+
+.LeftSide .BetweenStripe .SecondStripe {
+  content: url(./assets/FirstStripe.svg);
+  width: 0.13vw;
+}
+
+
 /* Правый сайдбар с параметрами настроек */
 .RightSide {
   width: 27.1vw;
   margin-left: auto;
   display: flex;
   flex-flow: column;
-  border-left: 0.15vw solid #1e1e1e; 
+  border-left: 0.15vw solid #878787; 
 }
 
 .RightSide .Container {
@@ -201,9 +270,11 @@ button {
   padding-top: 2vh;
 }
 
-.Apply {
-  background-color: black;
-  color: white;
+.RightSide .Apply {
+  background-color: white;
+  color: #5F5F5F;
+  font-weight: 600;
+  border-top: 0.3vh solid #EEEEEE;
   width: 100%;
 }
 
