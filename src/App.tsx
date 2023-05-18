@@ -1,52 +1,37 @@
-import { SetStateAction, useRef, useState } from "react";
+import { useState, ChangeEvent, MouseEvent } from "react";
 import "./App.css";
-import {
-  quicktype,
-  InputData,
-  jsonInputForTargetLanguage,
-  JSONSchemaInput,
-  FetchingJSONSchemaStore
-} from "quicktype-core";
-
-async function quicktypeJSON(targetLanguage: string, typeName: string, jsonString:string) {
-  const jsonInput = jsonInputForTargetLanguage(targetLanguage);
-
-  // We could add multiple samples for the same desired
-  // type, or many sources for other types. Here we're
-  // just making one type from one piece of sample JSON.
-  
-  await jsonInput.addSource({
-      name: typeName,
-      samples: [jsonString]
-  });
-
-  const inputData = new InputData();
-  inputData.addInput(jsonInput);
-
-  return await quicktype({
-      inputData,
-      lang: targetLanguage
-  });
-}
-
+import quicktypeJSON from "./Quicktype";
+import { jsonInputForTargetLanguage } from "quicktype-core";
 
 function App() {
-  const ts = 'TypeScript';
+  const test = '{"name":"Nirvana","founded":1987,"members":["Kurt Kobain","Dave Grohl","Krist Novoselic"]}'
+  const options = 'TypeScript';
 
-  //const [input_area, setInput] = useState('')
+  const [input_value, setInput] = useState(test);
+  const [output_area, setOutput] = useState('результат');
+  let raw_convert:string[];
+  let converted:string;
 
-  const ref = useRef(null);
+  const inputChangeHandler = (event:ChangeEvent<HTMLTextAreaElement>) => {
+    setInput(event.target.value)
+  };
 
-  /*const submitForm = (event:React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();}*/
+  const footerConvertHandler = (event: MouseEvent) =>{
+    event.preventDefault();
+    
+    console.log(input_value);
+    let raw = quicktypeJSON(options, 'name', input_value)
+    //.then(result => {raw_convert = result.lines})
+    .then(result => {
+        raw_convert = result.lines;
 
-  const Convert = (event: any) =>{
-    event.preventDefault()
-    console.log(ref.current.value)
-    let output = quicktypeJSON(ts, 'name', ref.current.value)
-      .then(result => {console.log(result.lines)})
-      .catch(err => alert(err))
-  }
+        setOutput(raw_convert.toString());
+
+        converted = JSON.parse(raw_convert.toString());
+        console.log(converted);
+    })
+    .catch(err => alert(err));   
+  };
 
   return (
     <div className="App">
@@ -73,7 +58,7 @@ function App() {
                   </select>
                 </div>
                 <div className="Body">
-                  <textarea className="TextArea" name="in" id="in" autoComplete="on" autoFocus ref={ref}/>
+                  <textarea className="TextArea" name="in" id="in" autoComplete="on" autoFocus value={input_value} onChange={inputChangeHandler}/>
                 </div>
               </div>
             </div>
@@ -102,13 +87,13 @@ function App() {
                   </button>
                 </div>
                 <div className="Body">
-                  <textarea className="TextArea" name="out" id="output" autoComplete="on" readOnly/>
+                  <textarea className="TextArea" name="out" id="output" autoComplete="on" readOnly value={output_area}/>
                 </div>
               </div>
             </div>
           </div>
           <div className="Footer">
-            <button className="Convert Button Inactive" onClick={Convert}>Конвертировать</button>
+            <button className="Convert Button Inactive" onClick={footerConvertHandler}>Конвертировать</button>
           </div>
         </div>
         <div className="RightSide">
