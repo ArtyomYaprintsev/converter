@@ -23,12 +23,37 @@ function App() {
     let raw = quicktypeJSON(options, 'name', input_value)
     //.then(result => {raw_convert = result.lines})
     .then(result => {
-        raw_convert = result.lines;
+        //raw_convert = result.lines;
+        
+        const borders: number[] = []
+        
+        for(var i=0; i<result.lines.length; i++)
+        {
+          if (borders.length < 2)
+          {
+            if(result.lines[i] == "")
+            {
+              borders.push(i)
+            }
+          }
+          else
+          {
+            console.log(borders)
+            break
+          }
+        }
+        
+        var result_string = ""
 
-        setOutput(raw_convert.toString());
+        for (var i=borders[0]+1; i < borders[1]; i++)
+        {
+          result_string += result.lines[i] + '\n'
+        }
 
-        converted = JSON.parse(raw_convert.toString());
-        console.log(converted);
+        setOutput(result_string);
+
+        //converted = JSON.parse(raw_convert.toString());
+        //console.log(converted);
     })
     .catch(err => alert(err));   
   };
