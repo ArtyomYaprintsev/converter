@@ -95,6 +95,14 @@ textarea:focus {
   outline: none;
 }
 
+textarea::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  position:absolute;
+  bottom: 3vh;
+  left: 3vh;
+  color: #999999;
+}
+
 button {
   border: none;
   font-size: 2vh;

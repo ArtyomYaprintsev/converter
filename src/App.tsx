@@ -1,16 +1,17 @@
-import { useState, ChangeEvent, MouseEvent } from "react";
+import { useState, ChangeEvent, MouseEvent, ChangeEventHandler } from "react";
 import "./App.css";
 import quicktypeJSON from "./Quicktype";
-import { jsonInputForTargetLanguage } from "quicktype-core";
+
 
 function App() {
   const test = '{"name":"Nirvana","founded":1987,"members":["Kurt Kobain","Dave Grohl","Krist Novoselic"]}'
-  const options = 'TypeScript';
+  const lang = 'TypeScript';
 
   const [input_value, setInput] = useState(test);
-  const [output_area, setOutput] = useState('результат');
-  let raw_convert:string[];
-  let converted:string;
+  const [output_area, setOutput] = useState('');
+  const [enum_value, setEnum] = useState(true);
+  const [interface_value, setInterface] = useState(true);
+  const [similarclasses_value, setSimilarclasses] = useState(false)
 
   const inputChangeHandler = (event:ChangeEvent<HTMLTextAreaElement>) => {
     setInput(event.target.value)
@@ -20,17 +21,20 @@ function App() {
     event.preventDefault();
     
     console.log(input_value);
-    let raw = quicktypeJSON(options, 'name', input_value)
-    //.then(result => {raw_convert = result.lines})
+    let raw = quicktypeJSON(lang, 'name', input_value, enum_value, similarclasses_value)
     .then(result => {
-        raw_convert = result.lines;
 
-        setOutput(raw_convert.toString());
-
-        converted = JSON.parse(raw_convert.toString());
-        console.log(converted);
     })
     .catch(err => alert(err));   
+  };
+
+  const footerParmsHandler = (event: MouseEvent) => {
+    console.log('да, эта кнопка ничего не делает')
+  };
+
+  const bebebe = (event: ChangeEvent) => {
+    setEnum(!enum_value);
+    console.log(enum_value);
   };
 
   return (
@@ -58,7 +62,7 @@ function App() {
                   </select>
                 </div>
                 <div className="Body">
-                  <textarea className="TextArea" name="in" id="in" autoComplete="on" autoFocus value={input_value} onChange={inputChangeHandler}/>
+                  <textarea className="TextArea" name="in" id="in" autoComplete="on" autoFocus value={input_value} onChange={inputChangeHandler} placeholder="Вставьте содержимое файла json или прикрепите файл"/>
                 </div>
               </div>
             </div>
@@ -89,7 +93,7 @@ function App() {
                   </button>
                 </div>
                 <div className="Body">
-                  <textarea className="TextArea" name="out" id="output" autoComplete="on" readOnly value={output_area}/>
+                  <textarea className="TextArea" name="out" id="output" autoComplete="on" readOnly value={output_area} placeholder="После конвертации вы увидите здесь результат"/>
                 </div>
               </div>
             </div>
@@ -106,11 +110,25 @@ function App() {
               </div>
               <div className="Body">
                 Контент блока
+                <div>
+                  <input type="radio" name="union" id="enum" onChange={()=>{setEnum(!enum_value)}} />
+                  <label htmlFor="enum">Enum</label>
+                  <input type="radio" name="union" id="union" onChange={()=>{setEnum(!enum_value)}} />
+                  <label htmlFor="union">Union</label>
+                </div>
+                <div>
+                  <input type="radio" name="type" id="type" onChange={()=>{setInterface(!interface_value)}} />
+                  <label htmlFor="type">Type</label>
+                  <input type="radio" name="interface" id="interface" onChange={()=>{setInterface(!interface_value)}} />
+                  <label htmlFor="interface">Interface</label>
+                </div>
+                <input type="checkbox" name="classes" id="classes" onClick={()=>{setSimilarclasses(!similarclasses_value)}}/>
+                <label htmlFor="classes">Обобщить похожие классы</label>
               </div>
             </div>
           </div>
           <div className="Footer">
-            <button className="Apply Button">Применить</button>
+            <button className="Apply Button" onClick={footerParmsHandler}>Применить</button>
           </div>
         </div>
       </main>
