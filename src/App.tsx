@@ -23,7 +23,6 @@ function App() {
     console.log(input_value);
     let raw = quicktypeJSON(lang, 'name', input_value, enum_value, similarclasses_value)
     .then(result => {
-        //raw_convert = result.lines;
         
         const borders: number[] = []
         
@@ -62,9 +61,6 @@ function App() {
         }
 
         setOutput(result_string);
-
-        //converted = JSON.parse(raw_convert.toString());
-        //console.log(converted);
     })
     .catch(err => alert(err));   
   };
