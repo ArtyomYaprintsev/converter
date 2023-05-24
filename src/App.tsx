@@ -4,6 +4,7 @@ import quicktypeJSON from "./Quicktype";
 
 
 function App() {
+<<<<<<< Updated upstream
   const test = '{"name":"Nirvana","founded":1987,"members":["Kurt Kobain","Dave Grohl","Krist Novoselic"]}'
   const lang = 'TypeScript';
 
@@ -12,6 +13,16 @@ function App() {
   const [enum_value, setEnum] = useState(true);
   const [interface_value, setInterface] = useState(true);
   const [similarclasses_value, setSimilarclasses] = useState(false)
+=======
+  //const test = '{"name":"Nirvana","founded":1987,"members":["Kurt Kobain","Dave Grohl","Krist Novoselic"]}'
+  const test = ''
+  const options = 'TypeScript';
+
+  const [input_value, setInput] = useState(test);
+  const [output_area, setOutput] = useState('');
+  let raw_convert:string[];
+  let converted:string;
+>>>>>>> Stashed changes
 
   const inputChangeHandler = (event:ChangeEvent<HTMLTextAreaElement>) => {
     setInput(event.target.value)
@@ -26,7 +37,7 @@ function App() {
         
         const borders: number[] = []
         
-        for(var i=0; i<result.lines.length; i++)
+        for(let i=0; i<result.lines.length; i++)
         {
           if (borders.length == 0)
           {
@@ -52,10 +63,10 @@ function App() {
             }
           }
         }
-        
+
         var result_string = ""
 
-        for (var i=borders[0]+1; i < borders[borders.length-1]; i++)
+        for (let i=borders[0]+1; i < borders[borders.length-1]; i++)
         {
           result_string += result.lines[i] + '\n'
         }
@@ -120,11 +131,11 @@ function App() {
                       Another
                     </option>
                   </select>
-                  <button className="Download Button">
+                  <button className="Download Button" disabled={!Boolean(output_area)}>
                     <div className="Icon"></div>
                     <span className="Title">Скачать</span>
                   </button>
-                  <button className="Copy Button">
+                  <button className="Copy Button" disabled={!Boolean(output_area)}>
                     <div className="Icon"></div>
                     <span className="Title">Скопировать</span>
                   </button>
@@ -136,7 +147,7 @@ function App() {
             </div>
           </div>
           <div className="Footer">
-            <button className="Convert Button Inactive" onClick={footerConvertHandler}>Конвертировать</button>
+            <button className="Convert Button Inactive" onClick={footerConvertHandler} disabled={!Boolean(input_value)}>Конвертировать</button>
           </div>
         </div>
         <div className="RightSide">
