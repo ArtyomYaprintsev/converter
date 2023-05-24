@@ -4,8 +4,8 @@ import quicktypeJSON from "./Quicktype";
 
 
 function App() {
-<<<<<<< Updated upstream
-  const test = '{"name":"Nirvana","founded":1987,"members":["Kurt Kobain","Dave Grohl","Krist Novoselic"]}'
+  //const test = '{"name":"Nirvana","founded":1987,"members":["Kurt Kobain","Dave Grohl","Krist Novoselic"]}'
+  const test = ''
   const lang = 'TypeScript';
 
   const [input_value, setInput] = useState(test);
@@ -13,16 +13,6 @@ function App() {
   const [enum_value, setEnum] = useState(true);
   const [interface_value, setInterface] = useState(true);
   const [similarclasses_value, setSimilarclasses] = useState(false)
-=======
-  //const test = '{"name":"Nirvana","founded":1987,"members":["Kurt Kobain","Dave Grohl","Krist Novoselic"]}'
-  const test = ''
-  const options = 'TypeScript';
-
-  const [input_value, setInput] = useState(test);
-  const [output_area, setOutput] = useState('');
-  let raw_convert:string[];
-  let converted:string;
->>>>>>> Stashed changes
 
   const inputChangeHandler = (event:ChangeEvent<HTMLTextAreaElement>) => {
     setInput(event.target.value)
