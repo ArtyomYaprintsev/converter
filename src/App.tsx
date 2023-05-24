@@ -29,7 +29,7 @@ function App() {
         
         for(var i=0; i<result.lines.length; i++)
         {
-          if (borders.length < 2)
+          if (borders.length == 0)
           {
             if(result.lines[i] == "")
             {
@@ -38,14 +38,25 @@ function App() {
           }
           else
           {
-            console.log(borders)
-            break
+            if (result.lines[borders[borders.length - 1] + 1].includes("//") && borders.length != 0)
+            {
+              console.log(i)
+              console.log(borders)
+              break
+            }
+            else
+            {
+              if(result.lines[i] == "")
+              {
+                borders.push(i)
+              }
+            }
           }
         }
         
         var result_string = ""
 
-        for (var i=borders[0]+1; i < borders[1]; i++)
+        for (var i=borders[0]+1; i < borders[borders.length-1]; i++)
         {
           result_string += result.lines[i] + '\n'
         }
