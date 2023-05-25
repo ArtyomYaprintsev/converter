@@ -286,6 +286,37 @@ button {
   width: 100%;
 }
 
+.RadioButtonGroup {
+  display: inline-block;
+  overflow: hidden;
+  margin: 14px;
+}
+
+.RadioButton {
+  float: left;
+  display: inline-block;
+}
+
+.RadioButtonGroup input[type=radio] {
+  display: none;
+}
+
+.RadioButtonGroup label {
+  display: inline-block;
+	padding: 0px 15px;
+	line-height: 34px;
+	border: 14px solid #f4f4f4;
+  background-color: #F4F4F4;
+	cursor: pointer;
+	user-select: none;
+}
+
+/* Checked */
+.RadioButton input[type=radio]:checked + label {
+	background: #000;
+  color: #fff;
+}
+
 /* Футер */
 .Footer {
   margin-top: auto;

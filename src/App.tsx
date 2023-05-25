@@ -1,7 +1,7 @@
 import { useState, ChangeEvent, MouseEvent, ChangeEventHandler } from "react";
 import "./App.css";
 import quicktypeJSON from "./Quicktype";
-
+import Popup from "./Popup/Popup";
 
 function App() {
   const test = '{"name":"Nirvana","founded":1987,"members":["Kurt Kobain","Dave Grohl","Krist Novoselic"]}'
@@ -9,9 +9,10 @@ function App() {
 
   const [input_value, setInput] = useState(test);
   const [output_area, setOutput] = useState('');
+  const [popup, setPopup] = useState(false);
   const [enum_value, setEnum] = useState(true);
   const [interface_value, setInterface] = useState(true);
-  const [similarclasses_value, setSimilarclasses] = useState(false)
+  const [similarclasses_value, setSimilarclasses] = useState(false);
 
   const inputChangeHandler = (event:ChangeEvent<HTMLTextAreaElement>) => {
     setInput(event.target.value)
@@ -21,7 +22,7 @@ function App() {
     event.preventDefault();
     
     console.log(input_value);
-    let raw = quicktypeJSON(lang, 'name', input_value, enum_value, similarclasses_value)
+    let raw = quicktypeJSON(lang, 'Thing', input_value, enum_value, similarclasses_value)
     .then(result => {
         
         const borders: number[] = []
@@ -53,7 +54,8 @@ function App() {
           }
         }
         
-        var result_string = ""
+        var result_string = "";
+        console.log(result);
 
         for (var i=borders[0]+1; i < borders[borders.length-1]; i++)
         {
@@ -62,7 +64,12 @@ function App() {
 
         setOutput(result_string);
     })
-    .catch(err => alert(err));   
+    .catch(err => {
+      setPopup(true);
+      console.log('error');
+      alert(err);
+      return <Popup open={popup} error={err} onClose={()=>setPopup(false)} />
+    });   
   };
 
   const footerParmsHandler = (event: MouseEvent) => {
@@ -114,7 +121,7 @@ function App() {
                   <span className="Text">в</span>
                   <select id="ToTypes">
                     <option value="JSON" selected>
-                      JSON
+                      TypeScript
                     </option>
                     <option value="Another">
                       Another
@@ -146,21 +153,30 @@ function App() {
                 Параметры конвертации
               </div>
               <div className="Body">
-                Контент блока
-                <div>
-                  <input type="radio" name="union" id="enum" onChange={()=>{setEnum(!enum_value)}} />
-                  <label htmlFor="enum">Enum</label>
-                  <input type="radio" name="union" id="union" onChange={()=>{setEnum(!enum_value)}} />
-                  <label htmlFor="union">Union</label>
+                <div className="RadioButtonGroup">
+                  <div className="RadioButton">
+                    <input type="radio" name="union" id="enum" onChange={()=>{setEnum(!enum_value)}} />
+                    <label htmlFor="enum">Enum</label>
+                  </div>
+                  <div className="RadioButton">
+                    <input type="radio" name="union" id="union" onChange={()=>{setEnum(!enum_value)}} />
+                    <label htmlFor="union">Union</label>
+                  </div>
                 </div>
-                <div>
-                  <input type="radio" name="type" id="type" onChange={()=>{setInterface(!interface_value)}} />
-                  <label htmlFor="type">Type</label>
-                  <input type="radio" name="interface" id="interface" onChange={()=>{setInterface(!interface_value)}} />
-                  <label htmlFor="interface">Interface</label>
+                <div className="RadioButtonGroup">
+                  <div className="RadioButton">
+                    <input type="radio" name="type" id="type" onChange={()=>{setInterface(!interface_value)}} />
+                    <label htmlFor="type">Type</label>
+                  </div> 
+                  <div className="RadioButton">
+                    <input type="radio" name="type" id="interface" onChange={()=>{setInterface(!interface_value)}} />
+                    <label htmlFor="interface">Interface</label>
+                  </div>
                 </div>
                 <input type="checkbox" name="classes" id="classes" onClick={()=>{setSimilarclasses(!similarclasses_value)}}/>
                 <label htmlFor="classes">Обобщить похожие классы</label>
+                {/* <button onClick={()=>setPopup(true)}>Ошибка</button> */}
+                {/* <Popup open={setPopup} /> */}
               </div>
             </div>
           </div>
