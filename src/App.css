@@ -91,7 +91,6 @@ textarea {
 
 textarea:focus {
   border: none;
-  overflow: hidden;
   outline: none;
 }
 
@@ -191,14 +190,22 @@ button {
   padding-left: 0.8vw;
   padding-right: 0.8vw;
   background-color: #F4F4F4;
-  color: #E6E6E6;
+  color: #5F5F5F;
   align-items: center;
+}
+
+.LeftSide .Copy:disabled {
+  opacity: 0.6;
 }
 
 .LeftSide .Copy .Icon {
   content: url(./assets/CopyIcon.svg);
   height: 5.4%;
   width: 13%;
+}
+
+.LeftSide .Copy .Icon:disabled {
+  opacity: 0.4;
 }
 
 .LeftSide .Copy .Title {
@@ -211,9 +218,14 @@ button {
   padding-left: 0.8vw;
   padding-right: 0.8vw;
   background-color: #F4F4F4;
-  color: #E6E6E6;
+  color: #5F5F5F;
   align-items: center;
 }
+
+.LeftSide .Download:disabled {
+  opacity: 0.6;
+}
+
 
 .LeftSide .Download .Title {
   margin-left: 0.5vw;
@@ -236,19 +248,31 @@ button {
 
 .LeftSide .BetweenStripe .FirstStripe {
   content: url(./assets/FirstStripe.svg);
-  width: 0.13vw;
+  width: 0.266vh;
 }
+
+.LeftSide .BetweenStripe.Active .Arrow{
+  opacity: 1;
+}
+
+.LeftSide .BetweenStripe.Active .SecondStripe, .LeftSide .BetweenStripe.Active .FirstStripe {
+  opacity: 0.3;
+}
+
 
 .LeftSide .BetweenStripe .Arrow {
   content: url(./assets/Arrow.svg);
   width: 2.5vw;
-
+  opacity: 0.7;
 }
+
+
 
 .LeftSide .BetweenStripe .SecondStripe {
   content: url(./assets/FirstStripe.svg);
-  width: 0.13vw;
+  width: 0.266vh;
 }
+
 
 
 /* Правый сайдбар с параметрами настроек */
@@ -277,6 +301,7 @@ button {
 .RightSide .Body {
   padding-top: 2vh;
 }
+
 
 .RightSide .Apply {
   background-color: white;
@@ -327,13 +352,23 @@ button {
   padding-bottom: 2vh; 
 }
 
-.Convert {
+.LeftSide .Convert {
+  width: 100%;
+  background-color: black;
+  color: white;
+  font-weight: 600;
+  border-top: 0.3vh solid black;
   width: 100%;
 }
 
-.Inactive {}
-
-.Active {}
+.LeftSide .Convert:disabled {
+  width: 100%;
+  background-color: #878787;
+  color: #9D9D9D;
+  font-weight: 600;
+  border-top: 0.3vh solid #878787;
+  width: 100%;
+}
 
 #types {
   font-size: 2vh;

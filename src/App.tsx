@@ -4,7 +4,8 @@ import quicktypeJSON from "./Quicktype";
 import Popup from "./Popup/Popup";
 
 function App() {
-  const test = '{"name":"Nirvana","founded":1987,"members":["Kurt Kobain","Dave Grohl","Krist Novoselic"]}'
+  //const test = '{"name":"Nirvana","founded":1987,"members":["Kurt Kobain","Dave Grohl","Krist Novoselic"]}'
+  const test = ''
   const lang = 'TypeScript';
 
   const [input_value, setInput] = useState(test);
@@ -27,7 +28,7 @@ function App() {
         
         const borders: number[] = []
         
-        for(var i=0; i<result.lines.length; i++)
+        for(let i=0; i<result.lines.length; i++)
         {
           if (borders.length == 0)
           {
@@ -53,11 +54,10 @@ function App() {
             }
           }
         }
-        
-        var result_string = "";
-        console.log(result);
 
-        for (var i=borders[0]+1; i < borders[borders.length-1]; i++)
+        var result_string = ""
+
+        for (let i=borders[0]+1; i < borders[borders.length-1]; i++)
         {
           result_string += result.lines[i] + '\n'
         }
@@ -110,7 +110,7 @@ function App() {
                 </div>
               </div>
             </div>
-            <div className="BetweenStripe">
+            <div className={`BetweenStripe ${Boolean(input_value)?"Active":""}`}>
               <div className="FirstStripe"></div>
               <div className="Arrow"></div>
               <div className="SecondStripe"></div>
@@ -127,11 +127,11 @@ function App() {
                       Another
                     </option>
                   </select>
-                  <button className="Download Button">
+                  <button className="Download Button" disabled={!Boolean(output_area)}>
                     <div className="Icon"></div>
                     <span className="Title">Скачать</span>
                   </button>
-                  <button className="Copy Button">
+                  <button className="Copy Button" disabled={!Boolean(output_area)}>
                     <div className="Icon"></div>
                     <span className="Title">Скопировать</span>
                   </button>
@@ -143,7 +143,7 @@ function App() {
             </div>
           </div>
           <div className="Footer">
-            <button className="Convert Button Inactive" onClick={footerConvertHandler}>Конвертировать</button>
+            <button className="Convert Button Inactive" onClick={footerConvertHandler} disabled={!Boolean(input_value)}>Конвертировать</button>
           </div>
         </div>
         <div className="RightSide">
