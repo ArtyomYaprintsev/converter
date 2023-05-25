@@ -104,7 +104,7 @@ function App() {
                 </div>
               </div>
             </div>
-            <div className="BetweenStripe">
+            <div className={`BetweenStripe ${Boolean(input_value)?"Active":""}`}>
               <div className="FirstStripe"></div>
               <div className="Arrow"></div>
               <div className="SecondStripe"></div>

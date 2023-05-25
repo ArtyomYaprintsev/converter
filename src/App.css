@@ -91,7 +91,6 @@ textarea {
 
 textarea:focus {
   border: none;
-  overflow: hidden;
   outline: none;
 }
 
@@ -252,16 +251,28 @@ button {
   width: 0.266vh;
 }
 
+.LeftSide .BetweenStripe.Active .Arrow{
+  opacity: 1;
+}
+
+.LeftSide .BetweenStripe.Active .SecondStripe, .LeftSide .BetweenStripe.Active .FirstStripe {
+  opacity: 0.3;
+}
+
+
 .LeftSide .BetweenStripe .Arrow {
   content: url(./assets/Arrow.svg);
   width: 2.5vw;
-
+  opacity: 0.7;
 }
+
+
 
 .LeftSide .BetweenStripe .SecondStripe {
   content: url(./assets/FirstStripe.svg);
   width: 0.266vh;
 }
+
 
 
 /* Правый сайдбар с параметрами настроек */
