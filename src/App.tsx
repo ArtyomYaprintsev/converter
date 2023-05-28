@@ -1,12 +1,8 @@
-import { useState, ChangeEvent, MouseEvent, ChangeEventHandler } from "react";
+import { useState, ChangeEvent, MouseEvent } from "react";
 import copysvg from "./assets/CopyIcon.svg"
 import copiedsvg from "./assets/CopiedIcon.svg"
 import "./App.css";
 import quicktypeJSON from "./Quicktype";
-import Popup from "./Popup/Popup";
-import { messageError } from "quicktype-core";
-
-
 
 function App() {
   const test = '{"name":"Nirvana","founded":1987,"members":["Kurt Kobain","Dave Grohl","Krist Novoselic"]}'
