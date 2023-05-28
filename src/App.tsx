@@ -25,11 +25,18 @@ function App() {
     setInput(event.target.value)
   };
 
+  function typeChange(text:string){
+    if (text.includes('interface')){
+      text = text.slice(0, 21) + ' =' + text.slice(21); //index of { - 22
+      text.replace('interface', 'type'); //index of interface - 7
+    };
+    return(text);
+  };
+
   const footerConvertHandler = (event: MouseEvent) => {
     event.preventDefault();
     
-    console.log(input_value);
-    let raw = quicktypeJSON(lang, 'JSON', input_value, enum_value, similarclasses_value)
+    quicktypeJSON(lang, 'JSON', input_value, enum_value, similarclasses_value)
     .then(result => {
         
         const borders: number[] = []
@@ -62,12 +69,12 @@ function App() {
         }
 
         var result_string = ""
-        console.log(result)
 
         for (let i=borders[0]+1; i < borders[borders.length-1]; i++)
         {
-          result_string += result.lines[i] + '\n'
-        }
+          if (interface_value){result_string += result.lines[i] + '\n';}
+          else{result_string += typeChange(result.lines[i]) + '\n';}
+        };
 
         setOutput(result_string);
     })
@@ -75,7 +82,6 @@ function App() {
       setPopup(true);
       console.log('error');
       alert(err);
-      return <Popup open={popup} error={err} onClose={()=>setPopup(false)} />
     });   
   };
 
@@ -183,12 +189,12 @@ function App() {
                 </div>
                 <div className="RadioButtonGroup">
                   <div className="RadioButton">
-                    <input type="radio" name="type" id="type" onChange={()=>{setInterface(!interface_value)}} checked={Boolean(interface_value)} />
-                    <label htmlFor="type">Type</label>
+                    <input type="radio" name="type" id="interface" onChange={()=>{setInterface(!interface_value)}} checked={Boolean(interface_value)} />
+                    <label htmlFor="interface">Interface</label>
                   </div> 
                   <div className="RadioButton">
-                    <input type="radio" name="type" id="interface" onChange={()=>{setInterface(!interface_value)}} />
-                    <label htmlFor="interface">Interface</label>
+                    <input type="radio" name="type" id="type" onChange={()=>{setInterface(!interface_value)}} />
+                    <label htmlFor="type">Type</label>
                   </div>
                 </div>
                 <input type="checkbox" name="classes" id="classes" onClick={()=>{setSimilarclasses(!similarclasses_value)}} />
