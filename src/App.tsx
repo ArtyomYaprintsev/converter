@@ -12,7 +12,7 @@ function App() {
   const test = '{"name":"Nirvana","founded":1987,"members":["Kurt Kobain","Dave Grohl","Krist Novoselic"]}'
   const lang = 'TypeScript';
 
-  const [input_value, setInput] = useState(test);
+  const [input_value, setInput] = useState('');
   const [output_value, setOutput] = useState('');
   const [popup, setPopup] = useState(false);
   const [enum_value, setEnum] = useState(true);
