@@ -81,7 +81,7 @@ textarea {
   border: none;
   padding: 1vh;
   font-size: 2vh;
-  font-family: Roboto;
+  font-family: 'Courier Prime', monospace;
   background-color: #F6F6F6;
   height: 100%;
   width: 100%;
@@ -199,7 +199,7 @@ button {
 }
 
 .LeftSide .Copy .Icon {
-  content: url(./assets/CopyIcon.svg);
+  /* content: url(./assets/CopyIcon.svg); */
   height: 5.4%;
   width: 13%;
 }
@@ -318,7 +318,7 @@ button {
 }
 
 .RadioButton {
-  float: left;
+  /* float: left; */
   display: inline-block;
 }
 

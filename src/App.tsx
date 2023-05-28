@@ -1,29 +1,35 @@
 import { useState, ChangeEvent, MouseEvent, ChangeEventHandler } from "react";
+import copysvg from "./assets/CopyIcon.svg"
+import copiedsvg from "./assets/CopiedIcon.svg"
 import "./App.css";
 import quicktypeJSON from "./Quicktype";
 import Popup from "./Popup/Popup";
+import { messageError } from "quicktype-core";
+
+
 
 function App() {
-  //const test = '{"name":"Nirvana","founded":1987,"members":["Kurt Kobain","Dave Grohl","Krist Novoselic"]}'
-  const test = ''
+  const test = '{"name":"Nirvana","founded":1987,"members":["Kurt Kobain","Dave Grohl","Krist Novoselic"]}'
   const lang = 'TypeScript';
 
   const [input_value, setInput] = useState(test);
-  const [output_area, setOutput] = useState('');
+  const [output_value, setOutput] = useState('');
   const [popup, setPopup] = useState(false);
   const [enum_value, setEnum] = useState(true);
   const [interface_value, setInterface] = useState(true);
   const [similarclasses_value, setSimilarclasses] = useState(false);
+  const [copied, setCopied] = useState('Скопировать');
+  const [copiedpic, setCopiedPic] = useState(copysvg)
 
   const inputChangeHandler = (event:ChangeEvent<HTMLTextAreaElement>) => {
     setInput(event.target.value)
   };
 
-  const footerConvertHandler = (event: MouseEvent) =>{
+  const footerConvertHandler = (event: MouseEvent) => {
     event.preventDefault();
     
     console.log(input_value);
-    let raw = quicktypeJSON(lang, 'Thing', input_value, enum_value, similarclasses_value)
+    let raw = quicktypeJSON(lang, 'JSON', input_value, enum_value, similarclasses_value)
     .then(result => {
         
         const borders: number[] = []
@@ -56,6 +62,7 @@ function App() {
         }
 
         var result_string = ""
+        console.log(result)
 
         for (let i=borders[0]+1; i < borders[borders.length-1]; i++)
         {
@@ -72,13 +79,24 @@ function App() {
     });   
   };
 
-  const footerParmsHandler = (event: MouseEvent) => {
-    console.log('да, эта кнопка ничего не делает')
+  const download = (event:MouseEvent) => {
+    const element = document.createElement("a");
+    const file = new Blob([output_value], {type: 'text/plain'});
+    element.href = URL.createObjectURL(file);
+    element.download = lang +".txt";
+    document.body.appendChild(element); // Required for this to work in FireFox
+    element.click();
   };
 
-  const bebebe = (event: ChangeEvent) => {
-    setEnum(!enum_value);
-    console.log(enum_value);
+  function copychange(img:string, text:string) {
+    setCopied(text);
+    setCopiedPic(img);
+  };
+
+  const copy = (event:MouseEvent) => {
+    navigator.clipboard.writeText(output_value);
+    copychange(copiedsvg, 'Скопировано'); //some naming
+    setTimeout(copychange, 1000, copysvg, 'Скопировать');
   };
 
   return (
@@ -127,17 +145,17 @@ function App() {
                       Another
                     </option>
                   </select>
-                  <button className="Download Button" disabled={!Boolean(output_area)}>
+                  <button className="Download Button" disabled={!Boolean(output_value)} onClick={download}> 
                     <div className="Icon"></div>
                     <span className="Title">Скачать</span>
                   </button>
-                  <button className="Copy Button" disabled={!Boolean(output_area)}>
-                    <div className="Icon"></div>
-                    <span className="Title">Скопировать</span>
+                  <button className="Copy Button" disabled={!Boolean(output_value)} onClick={copy}>
+                    <div className="Icon"><img src={copiedpic} alt="" /></div>
+                    <span className="Title">{copied}</span>
                   </button>
                 </div>
                 <div className="Body">
-                  <textarea className="TextArea" name="out" id="output" autoComplete="on" readOnly value={output_area} placeholder="После конвертации вы увидите здесь результат"/>
+                  <textarea className="TextArea" name="out" id="output" autoComplete="on" readOnly value={output_value} placeholder="После конвертации вы увидите здесь результат"/>
                 </div>
               </div>
             </div>
@@ -155,17 +173,17 @@ function App() {
               <div className="Body">
                 <div className="RadioButtonGroup">
                   <div className="RadioButton">
-                    <input type="radio" name="union" id="enum" onChange={()=>{setEnum(!enum_value)}} />
+                    <input type="radio" name="union" id="enum" onChange={()=>{setEnum(true)}} checked={Boolean(enum_value)} />
                     <label htmlFor="enum">Enum</label>
                   </div>
                   <div className="RadioButton">
-                    <input type="radio" name="union" id="union" onChange={()=>{setEnum(!enum_value)}} />
+                    <input type="radio" name="union" id="union" onChange={()=>{setEnum(false)}} />
                     <label htmlFor="union">Union</label>
                   </div>
                 </div>
                 <div className="RadioButtonGroup">
                   <div className="RadioButton">
-                    <input type="radio" name="type" id="type" onChange={()=>{setInterface(!interface_value)}} />
+                    <input type="radio" name="type" id="type" onChange={()=>{setInterface(!interface_value)}} checked={Boolean(interface_value)} />
                     <label htmlFor="type">Type</label>
                   </div> 
                   <div className="RadioButton">
@@ -173,15 +191,15 @@ function App() {
                     <label htmlFor="interface">Interface</label>
                   </div>
                 </div>
-                <input type="checkbox" name="classes" id="classes" onClick={()=>{setSimilarclasses(!similarclasses_value)}}/>
+                <input type="checkbox" name="classes" id="classes" onClick={()=>{setSimilarclasses(!similarclasses_value)}} />
                 <label htmlFor="classes">Обобщить похожие классы</label>
-                {/* <button onClick={()=>setPopup(true)}>Ошибка</button> */}
-                {/* <Popup open={setPopup} /> */}
+                {/* <button onClick={()=>setPopup(true)}>Ошибка</button>
+                <Popup open={setPopup} /> */}
               </div>
             </div>
           </div>
           <div className="Footer">
-            <button className="Apply Button" onClick={footerParmsHandler}>Применить</button>
+            <button className="Apply Button" onClick={()=>{console.log('Да, эта кнопка ничего не делает')}}>Применить</button>
           </div>
         </div>
       </main>
