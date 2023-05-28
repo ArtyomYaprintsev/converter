@@ -19,7 +19,7 @@ function App() {
   const [interface_value, setInterface] = useState(true);
   const [similarclasses_value, setSimilarclasses] = useState(false);
   const [copied, setCopied] = useState('Скопировать');
-  const [copiedpic, setCopiedPic] = useState(copysvg)
+  const [copiedpic, setCopiedPic] = useState(copysvg);
 
   const inputChangeHandler = (event:ChangeEvent<HTMLTextAreaElement>) => {
     setInput(event.target.value)
