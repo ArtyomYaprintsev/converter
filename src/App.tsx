@@ -28,7 +28,7 @@ function App() {
   function typeChange(text:string){
     if (text.includes('interface')){
       text = text.slice(0, 21) + ' =' + text.slice(21); //index of { - 22
-      text.replace('interface', 'type'); //index of interface - 7
+      text = text.replace('interface', 'type'); //index of interface - 7
     };
     return(text);
   };
