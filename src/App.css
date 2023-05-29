@@ -319,7 +319,7 @@ button {
 }
 
 .RightSide .Container .Body {
-  padding-top: 3vh;
+  padding-top: 2.5vh;
   display: flex;
   flex-flow: column;
 }
@@ -388,7 +388,7 @@ button {
 
 .RightSide .AddittionOption input[type=checkbox]:checked {
   display: inline-block;
-  background-color: #8B8B8B;
+  background-color: #4E4E4E;
   
 }
 

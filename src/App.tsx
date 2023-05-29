@@ -136,7 +136,7 @@ function App() {
                   <span className="Text">в</span>
                   <select id="ToTypes" defaultValue={"TypeScript"}>
                     <option value="TypeScript">
-                      TypeScript
+                      TypeScript DTO
                     </option>
                     <option value="Another">
                       Another
