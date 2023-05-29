@@ -116,14 +116,9 @@ function App() {
               <div className="Container">
                 <div className="Header">
                   <span className="Text">из</span>
-                  <select id="FromTypes">
-                    <option value="JSON" selected>
-                      JSON
-                    </option>
-                    <option value="Another">
-                      Another
-                    </option>
-                  </select>
+                  <div className="FromTypes">
+                    JSON
+                  </div>
                 </div>
                 <div className="Body">
                   <textarea className="TextArea" name="in" id="in" autoComplete="on" autoFocus value={input_value} onChange={inputChangeHandler} placeholder="Вставьте содержимое файла json или прикрепите файл"/>
@@ -139,8 +134,8 @@ function App() {
               <div className="Container">
                 <div className="Header">
                   <span className="Text">в</span>
-                  <select id="ToTypes">
-                    <option value="JSON" selected>
+                  <select id="ToTypes" defaultValue={"TypeScript"}>
+                    <option value="TypeScript">
                       TypeScript
                     </option>
                     <option value="Another">
@@ -152,7 +147,9 @@ function App() {
                     <span className="Title">Скачать</span>
                   </button>
                   <button className="Copy Button" disabled={!Boolean(output_value)} onClick={copy}>
-                    <div className="Icon"><img src={copiedpic} alt="" /></div>
+                    <div className="Icon">
+                      <img className="Iconsvg" src={copiedpic} alt="Иконка копирования" />
+                    </div>
                     <span className="Title">{copy_state}</span>
                   </button>
                 </div>
@@ -193,15 +190,14 @@ function App() {
                     <label htmlFor="type">Type</label>
                   </div>
                 </div>
-                <input type="checkbox" name="classes" id="classes" onClick={()=>{setSimilarclasses(!similarclasses_value)}} />
-                <label htmlFor="classes">Обобщить похожие классы</label>
-                {/* <button onClick={()=>setPopup(true)}>Ошибка</button>
-                <Popup open={setPopup} /> */}
+                <div className="AddittionOption">
+                  <input type="checkbox" name="classes" id="classes" onClick={()=>{setSimilarclasses(!similarclasses_value)}} />
+                  <label htmlFor="classes">Обобщить похожие классы</label>
+                  {/* <button onClick={()=>setPopup(true)}>Ошибка</button>
+                  <Popup open={setPopup} /> */}
+                </div>
               </div>
             </div>
-          </div>
-          <div className="Footer">
-            <button className="Apply Button" onClick={()=>{console.log('Да, эта кнопка ничего не делает')}}>Применить</button>
           </div>
         </div>
       </main>

@@ -35,7 +35,7 @@ header {
 }
 
 .RedStripe {
-  background-image: url(assets/RedStripe.svg);
+  background-image: url(./assets/RedStripe.svg);
   background-repeat: no-repeat;
   background-position: 50%;
   background-size: 100%;
@@ -66,14 +66,26 @@ select > option {
   font-weight: 500;
 }
 
-#FromTypes {
-  padding-top: 1.4vh;
-  padding-bottom: 1.4vh;
+.FromTypes {
+  display: flex;
+  flex-flow: row;
+  background-color: #4E4E4E;
+  color: white;
+  padding-left: 0.7vw;
+  padding-right: 0.8vw;
+  padding-top: 1.2vh;
+  padding-bottom: 1.2vh;
+  font-size: 2vh;
+  height: 2.9vh;
+  align-items: center;
 }
 
 #ToTypes {
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
   padding-top: 1.4vh;
   padding-bottom: 1.4vh;
+  font-size: 2vh;
 }
 
 textarea {
@@ -130,12 +142,17 @@ button {
   padding-top: 1.4vh;
   padding-bottom: 1.4vh;
   align-items: center;
+  height: 6vh;
 }
 
 .LeftSide .Block .Button {
   margin-right: 1.1vw;
   padding-top: 1.4vh;
   padding-bottom: 1.4vh;
+}
+
+.LeftSide .Block .Button.Copy {
+  padding-bottom: 1.19vh;
 }
 
 .LeftSide .Block .Header .Text {
@@ -198,10 +215,9 @@ button {
   opacity: 0.6;
 }
 
-.LeftSide .Copy .Icon {
+.LeftSide .Copy .Iconsvg {
   /* content: url(./assets/CopyIcon.svg); */
-  height: 5.4%;
-  width: 13%;
+  height: 2.5vh;
 }
 
 .LeftSide .Copy .Icon:disabled {
@@ -233,8 +249,7 @@ button {
 
 .LeftSide .Download .Icon {
   content: url(./assets/DownloadIcon.svg);
-  height: 10%;
-  width: 20%;
+  height: 2.5vh;
 }
 
 /* Разделяющий див со стрелкой – BetweenStripe */
@@ -270,7 +285,7 @@ button {
 
 .LeftSide .BetweenStripe .SecondStripe {
   content: url(./assets/FirstStripe.svg);
-  width: 0.266vh;
+  width: 0.268vh;
 }
 
 
@@ -292,14 +307,21 @@ button {
 }
 
 .RightSide .Header {
+  display: flex;
+  align-items: center;
   padding-top: 2vh;
+  padding-left: 0.6vw;
+  padding-right: 1vw;
   padding-bottom: 2vh;
   border-bottom: 0.15vh solid #ECECEC;
   font-weight: 500;
+  height: 5vh;
 }
 
-.RightSide .Body {
-  padding-top: 2vh;
+.RightSide .Container .Body {
+  padding-top: 3vh;
+  display: flex;
+  flex-flow: column;
 }
 
 
@@ -311,29 +333,45 @@ button {
   width: 100%;
 }
 
-.RadioButtonGroup {
+.RightSide .RadioButtonGroup {
   display: inline-block;
   overflow: hidden;
-  margin: 14px;
+  margin-bottom: 3vh;
 }
 
-.RadioButton {
+.RightSide .RadioButton {
   /* float: left; */
   display: inline-block;
 }
 
-.RadioButtonGroup input[type=radio] {
+.RightSide .RadioButtonGroup input[type=radio] {
   display: none;
 }
 
-.RadioButtonGroup label {
+.RightSide .RadioButtonGroup label {
   display: inline-block;
-	padding: 0px 15px;
-	line-height: 34px;
-	border: 14px solid #f4f4f4;
+	padding: 0px 2vh;
+	line-height: 4vh;
+	border: 1.4vh solid #f4f4f4;
   background-color: #F4F4F4;
 	cursor: pointer;
 	user-select: none;
+}
+
+.RightSide checkbox:before {
+  width: 2vh;
+  height: 2vh;
+  border-radius: 0;
+  border: none;
+  background-color: #F4F4F4;
+}
+
+.RightSide checkbox:after {
+  width: 2vh;
+  height: 2vh;
+  border-radius: 0;
+  border: none;
+  background-color: black;
 }
 
 /* Checked */
