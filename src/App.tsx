@@ -172,7 +172,7 @@ function App() {
               <div className="Body">
                 <div className="RadioButtonGroup">
                   <div className="TypeName">
-                    Выберите формат
+                    Выберите представление перечислений
                   </div>
                   <div className="RadioButton">
                     <input type="radio" name="union" id="enum" onChange={()=>{setEnum(true)}} checked={Boolean(enum_value)} />
@@ -185,7 +185,7 @@ function App() {
                 </div>
                 <div className="RadioButtonGroup BottomStripe" >
                   <div className="TypeName">
-                    Выберите формат х2
+                    Выберите тип объктов
                   </div>
                   <div className="RadioButton">
                     <input type="radio" name="type" id="interface" onChange={()=>{setInterface(!interface_value)}} checked={Boolean(interface_value)} />
