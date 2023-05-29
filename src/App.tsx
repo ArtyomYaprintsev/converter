@@ -14,7 +14,7 @@ function App() {
   const [enum_value, setEnum] = useState(true);
   const [interface_value, setInterface] = useState(true);
   const [similarclasses_value, setSimilarclasses] = useState(false);
-  const [copied, setCopied] = useState('Скопировать');
+  const [copy_state, setCopy] = useState('Скопировать');
   const [copiedpic, setCopiedPic] = useState(copysvg);
 
   const inputChangeHandler = (event:ChangeEvent<HTMLTextAreaElement>) => {
@@ -91,7 +91,7 @@ function App() {
   };
 
   function copychange(img:string, text:string) {
-    setCopied(text);
+    setCopy(text);
     setCopiedPic(img);
   };
 
@@ -153,7 +153,7 @@ function App() {
                   </button>
                   <button className="Copy Button" disabled={!Boolean(output_value)} onClick={copy}>
                     <div className="Icon"><img src={copiedpic} alt="" /></div>
-                    <span className="Title">{copied}</span>
+                    <span className="Title">{copy_state}</span>
                   </button>
                 </div>
                 <div className="Body">
