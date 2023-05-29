@@ -171,6 +171,9 @@ function App() {
               </div>
               <div className="Body">
                 <div className="RadioButtonGroup">
+                  <div className="TypeName">
+                    Выберите формат
+                  </div>
                   <div className="RadioButton">
                     <input type="radio" name="union" id="enum" onChange={()=>{setEnum(true)}} checked={Boolean(enum_value)} />
                     <label htmlFor="enum">Enum</label>
@@ -180,7 +183,10 @@ function App() {
                     <label htmlFor="union">Union</label>
                   </div>
                 </div>
-                <div className="RadioButtonGroup">
+                <div className="RadioButtonGroup BottomStripe" >
+                  <div className="TypeName">
+                    Выберите формат х2
+                  </div>
                   <div className="RadioButton">
                     <input type="radio" name="type" id="interface" onChange={()=>{setInterface(!interface_value)}} checked={Boolean(interface_value)} />
                     <label htmlFor="interface">Interface</label>
@@ -191,8 +197,12 @@ function App() {
                   </div>
                 </div>
                 <div className="AddittionOption">
-                  <input type="checkbox" name="classes" id="classes" onClick={()=>{setSimilarclasses(!similarclasses_value)}} />
-                  <label htmlFor="classes">Обобщить похожие классы</label>
+                  <label>
+                    <input type="checkbox" name="classes" id="classes" onChange={()=>{setSimilarclasses(!similarclasses_value)}} />
+                    <span>Обобщить похожие классы</span>
+                  </label>
+                  {/* <input type="radio" name="classes" id="classes" onChange={()=>{setSimilarclasses(!similarclasses_value)}} />
+                  <label htmlFor="classes">Обобщить похожие классы</label> */}
                   {/* <button onClick={()=>setPopup(true)}>Ошибка</button>
                   <Popup open={setPopup} /> */}
                 </div>
