@@ -1,11 +1,11 @@
 import { useState, ChangeEvent, MouseEvent } from "react";
-import copysvg from "./assets/CopyIcon.svg"
-import copiedsvg from "./assets/CopiedIcon.svg"
+import copysvg from "./assets/CopyIcon.svg";
+import copiedsvg from "./assets/CopiedIcon.svg";
 import "./App.css";
 import quicktypeJSON from "./Quicktype";
 
 function App() {
-  const test = '{"name":"Nirvana","founded":1987,"members":["Kurt Kobain","Dave Grohl","Krist Novoselic"]}'
+  const test = '{"name":"Nirvana","founded":1987,"members":["Kurt Kobain","Dave Grohl","Krist Novoselic"]}';
   const lang = 'TypeScript';
 
   const [input_value, setInput] = useState('');
@@ -18,7 +18,7 @@ function App() {
   const [copiedpic, setCopiedPic] = useState(copysvg);
 
   const inputChangeHandler = (event:ChangeEvent<HTMLTextAreaElement>) => {
-    setInput(event.target.value)
+    setInput(event.target.value);
   };
 
   function typeChange(text:string){
@@ -35,7 +35,7 @@ function App() {
     quicktypeJSON(lang, 'JSON', input_value, enum_value, similarclasses_value)
     .then(result => {
         
-        const borders: number[] = []
+        const borders: number[] = [];
         
         for(let i=0; i<result.lines.length; i++)
         {
@@ -43,28 +43,28 @@ function App() {
           {
             if(result.lines[i] == "")
             {
-              borders.push(i)
+              borders.push(i);
             }
           }
           else
           {
             if (result.lines[borders[borders.length - 1] + 1].includes("//") && borders.length != 0)
             {
-              console.log(i)
-              console.log(borders)
-              break
+              console.log(i);
+              console.log(borders);
+              break;
             }
             else
             {
               if(result.lines[i] == "")
               {
-                borders.push(i)
+                borders.push(i);
               }
             }
           }
         }
 
-        var result_string = ""
+        let result_string = ""
 
         for (let i=borders[0]+1; i < borders[borders.length-1]; i++)
         {
