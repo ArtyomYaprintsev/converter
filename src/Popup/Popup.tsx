@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 import "./Popup.css"
 
 const Popup = (props:any) => { //any
