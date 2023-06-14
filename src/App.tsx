@@ -3,6 +3,7 @@ import copysvg from "./assets/CopyIcon.svg";
 import copiedsvg from "./assets/CopiedIcon.svg";
 import "./App.css";
 import quicktypeJSON from "./Quicktype";
+import Popup from "./Popup/Popup";
 
 function App() {
   const test = '{"name":"Nirvana","founded":1987,"members":["Kurt Kobain","Dave Grohl","Krist Novoselic"]}';
@@ -11,6 +12,7 @@ function App() {
   const [input_value, setInput] = useState('');
   const [output_value, setOutput] = useState('');
   const [popup, setPopup] = useState(false);
+  const [error, setError] = useState('');
   const [enum_value, setEnum] = useState(true);
   const [interface_value, setInterface] = useState(true);
   const [similarclasses_value, setSimilarclasses] = useState(false);
@@ -75,11 +77,14 @@ function App() {
         setOutput(result_string);
     })
     .catch(err => {
+      console.log(err);
+      setError(err);
       setPopup(true);
-      console.log('error');
-      alert(err);
+      // alert(err);
+      // return(()=><Popup active={popup} error={err}/>)
     });   
   };
+
 
   const download = (event:MouseEvent) => {
     const element = document.createElement("a");
@@ -110,6 +115,7 @@ function App() {
         </div>
       </header>
       <main>
+      <Popup active={popup} setActive={setPopup} error={error}/>
         <div className="LeftSide">
           <div className="Content">
             <div className="Input Block">
@@ -201,10 +207,8 @@ function App() {
                     <input type="checkbox" name="classes" id="classes" onChange={()=>{setSimilarclasses(!similarclasses_value)}} />
                     <span>Обобщить похожие классы</span>
                   </label>
-                  {/* <input type="radio" name="classes" id="classes" onChange={()=>{setSimilarclasses(!similarclasses_value)}} />
-                  <label htmlFor="classes">Обобщить похожие классы</label> */}
-                  {/* <button onClick={()=>setPopup(true)}>Ошибка</button>
-                  <Popup open={setPopup} /> */}
+                  {/* <button onClick={()=>setPopup(true)}>Ошибка</button> */}
+                  <button onClick={()=>console.log(error)}>Ошибка</button>
                 </div>
               </div>
             </div>

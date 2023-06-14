@@ -1,7 +1,26 @@
-Popup{
+.Popup {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.3);
+    position:fixed;
+    top: 0;
+    bottom: 0;
+}
 
-};
+.Popup .Content {
+    position: absolute;
+    top: 45%;
+    left: 20%;
+    background: white;
+    height: 150px;
+    width: 400px; 
+    padding: 10px;  
+    box-shadow: -25px 25px red; 
+}
 
-Active{
-
-};
+.Popup .Button {
+    position: relative;
+    left: 50%;
+    background-color: #000;
+    color: #fff;
+}
