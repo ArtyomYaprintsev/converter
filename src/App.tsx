@@ -114,8 +114,8 @@ function App() {
           <div className="RedStripe"></div>
         </div>
       </header>
-      <main>
       <Popup active={popup} setActive={setPopup} error={error}/>
+      <main>
         <div className="LeftSide">
           <div className="Content">
             <div className="Input Block">

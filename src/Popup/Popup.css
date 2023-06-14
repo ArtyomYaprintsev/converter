@@ -9,18 +9,23 @@
 
 .Popup .Content {
     position: absolute;
-    top: 45%;
-    left: 20%;
+    top: calc(45% - 75px);
+    left: calc(20% + 150px);
     background: white;
     height: 150px;
     width: 400px; 
-    padding: 10px;  
+    padding: 20px;  
     box-shadow: -25px 25px red; 
 }
 
 .Popup .Button {
     position: relative;
     left: 50%;
+    padding: 10px 10px;
     background-color: #000;
     color: #fff;
+}
+
+.Popup h2 {
+    color: red;
 }
