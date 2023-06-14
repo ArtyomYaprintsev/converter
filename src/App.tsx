@@ -80,7 +80,6 @@ function App() {
       console.log(err);
       setError(err);
       setPopup(true);
-      // alert(err);
       // return(()=><Popup active={popup} error={err}/>)
     });   
   };
@@ -90,8 +89,8 @@ function App() {
     const element = document.createElement("a");
     const file = new Blob([output_value], {type: 'text/plain'});
     element.href = URL.createObjectURL(file);
-    element.download = lang +".txt";
-    document.body.appendChild(element); // Required for this to work in FireFox
+    element.download = lang +".ts";
+    document.body.appendChild(element);
     element.click();
   };
 
@@ -102,7 +101,7 @@ function App() {
 
   const copy = (event:MouseEvent) => {
     navigator.clipboard.writeText(output_value);
-    copychange(copiedsvg, 'Скопировано'); //some naming
+    copychange(copiedsvg, 'Скопировано');
     setTimeout(copychange, 1000, copysvg, 'Скопировать');
   };
 
@@ -207,8 +206,6 @@ function App() {
                     <input type="checkbox" name="classes" id="classes" onChange={()=>{setSimilarclasses(!similarclasses_value)}} />
                     <span>Обобщить похожие классы</span>
                   </label>
-                  {/* <button onClick={()=>setPopup(true)}>Ошибка</button> */}
-                  <button onClick={()=>console.log(error)}>Ошибка</button>
                 </div>
               </div>
             </div>

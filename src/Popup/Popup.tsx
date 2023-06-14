@@ -1,8 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import "./Popup.css"
 
-// const Popup = (active:boolean, setActive:Dispatch<SetStateAction<boolean>>, error:string) => {
-const Popup = (props:any) => {
+const Popup = (props:any) => { //any
     return(props.active) ? (
         <div className="Popup"> 
             <div className="Content">
