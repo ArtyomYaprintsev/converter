@@ -6,6 +6,7 @@ import Popup from "../../components/Popup";
 
 import copysvg from "../../assets/CopyIcon.svg";
 import copiedsvg from "../../assets/CopiedIcon.svg";
+import Header from "../../components/Header";
 
 const ConverterPage = () => {
   const test =
@@ -104,13 +105,8 @@ const ConverterPage = () => {
 
   return (
     <div className='App'>
-      <header>
-        <div className='Logo'>
-          <div className='Title'>Конвертер</div>
-          <div className='RedStripe'></div>
-        </div>
-      </header>
-      <Popup active={popup} setActive={setPopup} error={error} />
+      <Header />
+
       <main>
         <div className='LeftSide'>
           <div className='Content'>
@@ -275,6 +271,8 @@ const ConverterPage = () => {
           </div>
         </div>
       </main>
+
+      <Popup active={popup} setActive={setPopup} error={error} />
     </div>
   );
 };
