@@ -21,7 +21,7 @@ header {
   width: 100%;
   background-color: black;
   color: white;
-  height: 6.8vh ;
+  height: 6.8vh;
   display: flex;
   flex-flow: row;
   line-height: 100%;
@@ -35,7 +35,7 @@ header {
 }
 
 .RedStripe {
-  background-image: url(./assets/redStripe.svg);
+  background-image: url(/src/assets/redStripe.svg);
   background-repeat: no-repeat;
   background-position: 50%;
   background-size: 100%;
@@ -55,7 +55,7 @@ main {
   background-color: white;
 }
 
-select{
+select {
   background-color: #4e4e4e;
   color: white;
   margin-right: 1.1vw;
@@ -69,7 +69,7 @@ select > option {
 .FromTypes {
   display: flex;
   flex-flow: row;
-  background-color: #4E4E4E;
+  background-color: #4e4e4e;
   color: white;
   padding-left: 0.7vw;
   padding-right: 0.8vw;
@@ -93,12 +93,12 @@ textarea {
   border: none;
   padding: 1vh;
   font-size: 2vh;
-  font-family: 'Courier Prime', monospace;
-  background-color: #F6F6F6;
+  font-family: "Courier Prime", monospace;
+  background-color: #f6f6f6;
   height: 100%;
   width: 100%;
   box-sizing: border-box;
-  color:black;
+  color: black;
 }
 
 textarea:focus {
@@ -108,7 +108,7 @@ textarea:focus {
 
 textarea::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
-  position:absolute;
+  position: absolute;
   bottom: 3vh;
   left: 3vh;
   color: #999999;
@@ -158,7 +158,7 @@ button {
 .LeftSide .Block .Header .Text {
   text-align: center;
   font-weight: 500;
-  color: #C2C2C2;
+  color: #c2c2c2;
   margin-right: 0.7vw;
 }
 
@@ -195,7 +195,7 @@ button {
 
 .LeftSide .Inactive {
   background-color: #878787;
-  color: #9D9D9D;
+  color: #9d9d9d;
   font-weight: 600;
   border-top: 0.3vh solid #878787;
   width: 100%;
@@ -206,8 +206,8 @@ button {
   flex-flow: row;
   padding-left: 0.8vw;
   padding-right: 0.8vw;
-  background-color: #F4F4F4;
-  color: #5F5F5F;
+  background-color: #f4f4f4;
+  color: #5f5f5f;
   align-items: center;
 }
 
@@ -216,7 +216,7 @@ button {
 }
 
 .LeftSide .Copy .Iconsvg {
-  /* content: url(./assets/CopyIcon.svg); */
+  /* content: url(/src/assets/CopyIcon.svg); */
   height: 2.5vh;
 }
 
@@ -233,8 +233,8 @@ button {
   flex-flow: row;
   padding-left: 0.8vw;
   padding-right: 0.8vw;
-  background-color: #F4F4F4;
-  color: #5F5F5F;
+  background-color: #f4f4f4;
+  color: #5f5f5f;
   align-items: center;
 }
 
@@ -242,18 +242,17 @@ button {
   opacity: 0.6;
 }
 
-
 .LeftSide .Download .Title {
   margin-left: 0.5vw;
 }
 
 .LeftSide .Download .Icon {
-  content: url(./assets/DownloadIcon.svg);
+  content: url(/src/assets/DownloadIcon.svg);
   height: 2.5vh;
 }
 
 /* Разделяющий див со стрелкой – BetweenStripe */
-.LeftSide .BetweenStripe{
+.LeftSide .BetweenStripe {
   flex-grow: 1;
   display: flex;
   flex-flow: column;
@@ -262,33 +261,29 @@ button {
 }
 
 .LeftSide .BetweenStripe .FirstStripe {
-  content: url(./assets/FirstStripe.svg);
+  content: url(/src/assets/FirstStripe.svg);
   width: 0.266vh;
 }
 
-.LeftSide .BetweenStripe.Active .Arrow{
+.LeftSide .BetweenStripe.Active .Arrow {
   opacity: 1;
 }
 
-.LeftSide .BetweenStripe.Active .SecondStripe, .LeftSide .BetweenStripe.Active .FirstStripe {
+.LeftSide .BetweenStripe.Active .SecondStripe,
+.LeftSide .BetweenStripe.Active .FirstStripe {
   opacity: 0.3;
 }
 
-
 .LeftSide .BetweenStripe .Arrow {
-  content: url(./assets/Arrow.svg);
+  content: url(/src/assets/Arrow.svg);
   width: 2.5vw;
   opacity: 0.7;
 }
 
-
-
 .LeftSide .BetweenStripe .SecondStripe {
-  content: url(./assets/FirstStripe.svg);
+  content: url(/src/assets/FirstStripe.svg);
   width: 0.268vh;
 }
-
-
 
 /* Правый сайдбар с параметрами настроек */
 .RightSide {
@@ -296,7 +291,7 @@ button {
   margin-left: auto;
   display: flex;
   flex-flow: column;
-  border-left: 0.15vw solid #878787; 
+  border-left: 0.15vw solid #878787;
 }
 
 .RightSide .Container {
@@ -313,7 +308,7 @@ button {
   padding-left: 0.6vw;
   padding-right: 1vw;
   padding-bottom: 2vh;
-  border-bottom: 0.15vh solid #ECECEC;
+  border-bottom: 0.15vh solid #ececec;
   font-weight: 500;
   height: 5vh;
 }
@@ -324,12 +319,11 @@ button {
   flex-flow: column;
 }
 
-
 .RightSide .Apply {
   background-color: white;
-  color: #5F5F5F;
+  color: #5f5f5f;
   font-weight: 600;
-  border-top: 0.3vh solid #EEEEEE;
+  border-top: 0.3vh solid #eeeeee;
   width: 100%;
 }
 
@@ -342,7 +336,7 @@ button {
 .RightSide .RadioButtonGroup .TypeName {
   margin-left: 0.7vw;
   margin-bottom: 0.8vh;
-  color: #5F5F5F;
+  color: #5f5f5f;
 }
 
 .RightSide .RadioButton {
@@ -350,34 +344,39 @@ button {
   display: inline-block;
 }
 
-.RightSide .RadioButtonGroup input[type=radio] {
+.RightSide .RadioButtonGroup input[type="radio"] {
   display: none;
 }
 
 .RightSide .RadioButtonGroup label {
   display: inline-block;
-	padding: 0px 2vh;
-	line-height: 4vh;
-	border: 1.4vh solid #f4f4f4;
-  background-color: #F4F4F4;
-	cursor: pointer;
-	user-select: none;
+  padding: 0px 2vh;
+  line-height: 4vh;
+  border: 1.4vh solid #f4f4f4;
+  background-color: #f4f4f4;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .RightSide .AddittionOption label {
   display: flex;
   flex-flow: row;
   align-items: center;
-  
+
   /* padding: 5px 10px; */
   /* cursor: pointer; */
-  color: #5F5F5F;
+  color: #5f5f5f;
   margin-left: 0.5vw;
   margin-top: 1vh;
 }
 
-.RightSide .AddittionOption input[type=checkbox] {
+.RightSide .AddittionOption input[type="checkbox"] {
   /* padding: 0.5em; */
   -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   background-color: #f4f4f4;
   height: 2.1vh;
   width: 1vw;
@@ -386,27 +385,26 @@ button {
   outline-offset: 0.1em; */
 }
 
-.RightSide .AddittionOption input[type=checkbox]:checked {
+.RightSide .AddittionOption input[type="checkbox"]:checked {
   display: inline-block;
-  background-color: #4E4E4E;
-  
+  background-color: #4e4e4e;
 }
 
 .RightSide .BottomStripe {
   padding-bottom: 4vh;
-  border-bottom: 0.2vh solid #ECECEC;
+  border-bottom: 0.2vh solid #ececec;
 }
 
-.RightSide input[type=checkbox]:before {
+.RightSide input[type="checkbox"]:before {
   width: 2vh;
   height: 2vh;
   border-radius: 0;
   border: none;
-  background-color: #F4F4F4;
+  background-color: #f4f4f4;
   margin-right: 1vw;
 }
 
-.RightSide .AddittionOption input[type=checkbox]:after {
+.RightSide .AddittionOption input[type="checkbox"]:after {
   width: 2vh;
   height: 2vh;
   border-radius: 0;
@@ -416,8 +414,8 @@ button {
 }
 
 /* Checked */
-.RadioButton input[type=radio]:checked + label {
-	background: #000;
+.RadioButton input[type="radio"]:checked + label {
+  background: #000;
   color: #fff;
 }
 
@@ -428,7 +426,7 @@ button {
 
 .Footer .Button {
   padding-top: 2vh;
-  padding-bottom: 2vh; 
+  padding-bottom: 2vh;
 }
 
 .LeftSide .Convert {
@@ -443,7 +441,7 @@ button {
 .LeftSide .Convert:disabled {
   width: 100%;
   background-color: #878787;
-  color: #9D9D9D;
+  color: #9d9d9d;
   font-weight: 600;
   border-top: 0.3vh solid #878787;
   width: 100%;
