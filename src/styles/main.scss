@@ -1,0 +1,33 @@
+@import "variables";
+
+body {
+  padding: 0;
+  margin: 0;
+
+  overflow-y: hidden;
+  overflow-x: auto;
+  min-width: $min-width;
+}
+
+:root {
+  font-family: "Roboto", sans-serif;
+
+  color-scheme: light;
+  color: $black;
+  font-synthesis: none;
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  font-size: 20px;
+
+  @media screen and (max-width: 1700px) {
+    font-size: 18px;
+  }
+
+  @media screen and (max-width: 1600px) {
+    font-size: 16px;
+  }
+}

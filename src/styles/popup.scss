@@ -1,0 +1,96 @@
+@import "variables";
+
+.popup-wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: max($min-width, 100%);
+  z-index: 900;
+
+  h2 {
+    margin: 0;
+  }
+
+  .popup-container {
+    position: relative;
+    height: 100%;
+  }
+
+  .close-popup__container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 901;
+
+    background-color: $popup-bgcolor;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .popup-body {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 902;
+    transform: translate(-50%, -50%);
+  }
+
+  .error-popup {
+    max-width: 600px;
+
+    .popup-content {
+      padding: 1.5em 2em;
+      box-sizing: border-box;
+      background-color: #fff;
+      position: relative;
+      z-index: 910;
+    }
+
+    h2,
+    h3 {
+      margin: 0;
+      font-weight: bold;
+      font-size: 1em;
+    }
+
+    h3 {
+      color: $red;
+      margin: 10px 0 1.5em;
+    }
+
+    p {
+      color: $gray-700;
+      margin-bottom: 2em;
+    }
+
+    .close-popup-btn {
+      background-color: $black;
+      color: $white;
+      padding: 1em 1.5em;
+      font-size: 1em;
+      border: none;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    &::before {
+      content: "";
+      width: 100%;
+      height: 100%;
+      background-color: $red;
+      display: block;
+
+      position: absolute;
+      top: 25px;
+      left: -25px;
+      z-index: 909;
+    }
+  }
+}

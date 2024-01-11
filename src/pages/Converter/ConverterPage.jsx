@@ -1,278 +1,328 @@
-import { useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 import quicktypeJSON from "../../utils/quicktype";
+import ErrorPopup from "../../components/Popup";
+import SettingsBar from "../../components/SettingsBar";
+import CopyButton from "../../components/CopyButton";
+import ClipIcon from "../../components/ClipIcon";
+import DownloadIcon from "../../components/DownloadIcon";
 
-import Popup from "../../components/Popup";
+import "../../styles/converter.scss";
 
-import copysvg from "../../assets/CopyIcon.svg";
-import copiedsvg from "../../assets/CopiedIcon.svg";
-import Header from "../../components/Header";
+const INPUT_MAP = {
+  ENUM_OR_UNION: {
+    name: "enum-or-union",
+    isEnum: "is-enum",
+    isUnion: "is-union",
+  },
+  TYPE_OR_INTERFACE: {
+    name: "type-or-interface",
+    isType: "is-type",
+    isInterface: "is-interface",
+  },
+  SUMMARIZE_SIMILAR_CLASSES: {
+    name: "summarize-similar-classes",
+  },
+  USE_CAMEL_CASE: {
+    name: "use-camel-case",
+  },
+};
 
 const ConverterPage = () => {
-  const test =
-    '{"name":"Nirvana","founded":1987,"members":["Kurt Kobain","Dave Grohl","Krist Novoselic"]}';
-  const lang = "TypeScript";
-
-  const [input_value, setInput] = useState("");
-  const [output_value, setOutput] = useState("");
-  const [popup, setPopup] = useState(false);
   const [error, setError] = useState("");
-  const [enum_value, setEnum] = useState(true);
-  const [interface_value, setInterface] = useState(true);
-  const [similarclasses_value, setSimilarclasses] = useState(false);
-  const [copy_state, setCopy] = useState("Скопировать");
-  const [copiedpic, setCopiedPic] = useState(copysvg);
+  const [isOutputExists, setIsOutputExists] = useState(false);
+  const [isInitialView, setIsInitialView] = useState(true);
 
-  const inputChangeHandler = (event) => {
-    setInput(event.target.value);
-  };
+  const { register, handleSubmit, setValue } = useForm();
 
-  function typeChange(text) {
-    if (text.includes("interface")) {
-      text = text.slice(0, 21) + " =" + text.slice(21); //index of { - 22
-      text = text.replace("interface", "type"); //index of interface - 7
-    }
-    return text;
-  }
+  const outputAreaRef = useRef();
+  const downloadLinkRef = useRef();
 
-  const footerConvertHandler = (event) => {
-    event.preventDefault();
+  const reader = new FileReader();
+  reader.onload = (e) => setValue("input-json", e.target.result);
+  reader.onerror = () => setError("Error on reading file, try another file.");
 
-    quicktypeJSON(lang, "JSON", input_value, enum_value, similarclasses_value)
-      .then((result) => {
-        const borders = [];
+  const convertHandler = (data) => {
+    quicktypeJSON(
+      "TypeScript",
+      "'input-json'",
+      data["input-json"],
+      data[INPUT_MAP.ENUM_OR_UNION.name] === INPUT_MAP.ENUM_OR_UNION.isEnum,
+      data[INPUT_MAP.SUMMARIZE_SIMILAR_CLASSES.name]
+    )
+      .then(({ lines }) => {
+        const output = [];
+        const pattern = /^export interface (?<name>[A-Za-z]+) {$/;
 
-        for (let i = 0; i < result.lines.length; i++) {
-          if (borders.length == 0) {
-            if (result.lines[i] == "") {
-              borders.push(i);
-            }
-          } else {
-            if (
-              result.lines[borders[borders.length - 1] + 1].includes("//") &&
-              borders.length != 0
-            ) {
-              console.log(i);
-              console.log(borders);
-              break;
-            } else {
-              if (result.lines[i] == "") {
-                borders.push(i);
-              }
-            }
+        for (let line of lines) {
+          if (line === "// Converts JSON strings to/from your types") break;
+          if (line.startsWith("//")) continue;
+
+          if (
+            data[INPUT_MAP.TYPE_OR_INTERFACE.name] ===
+            INPUT_MAP.TYPE_OR_INTERFACE.isType
+          ) {
+            const match = line.match(pattern);
+            if (match) line = `export type ${match.groups.name} = {`;
           }
+
+          output.push(line);
         }
 
-        let result_string = "";
-
-        for (let i = borders[0] + 1; i < borders[borders.length - 1]; i++) {
-          if (interface_value) {
-            result_string += result.lines[i] + "\n";
-          } else {
-            result_string += typeChange(result.lines[i]) + "\n";
-          }
-        }
-
-        setOutput(result_string);
+        outputAreaRef.current.value = output.join("\r\n").trim();
+        setIsOutputExists(true);
       })
       .catch((err) => {
-        console.log(err);
-        setError(err);
-        setPopup(true);
-        // return(()=><Popup active={popup} error={err}/>)
+        console.error("ERROR", err.message);
+        setError(err.message);
       });
   };
 
-  const download = (event) => {
-    const element = document.createElement("a");
-    const file = new Blob([output_value], { type: "text/plain" });
-    element.href = URL.createObjectURL(file);
-    element.download = lang + ".ts";
-    document.body.appendChild(element);
-    element.click();
-  };
+  const downloadHandler = useCallback(() => {
+    const downloadLink = downloadLinkRef.current;
+    const currentOutput = outputAreaRef.current;
 
-  function copychange(img, text) {
-    setCopy(text);
-    setCopiedPic(img);
-  }
+    if (!currentOutput || !downloadLink) return;
 
-  const copy = (event) => {
-    navigator.clipboard.writeText(output_value);
-    copychange(copiedsvg, "Скопировано");
-    setTimeout(copychange, 1000, copysvg, "Скопировать");
-  };
+    const file = new Blob([currentOutput.value], {
+      type: "text/plain",
+    });
+    downloadLink.href = URL.createObjectURL(file);
+    downloadLink.click();
+  }, []);
+
+  const copyHandler = useCallback(() => {
+    const currentOutput = outputAreaRef.current;
+
+    if (!currentOutput) return;
+    if (!navigator.clipboard) {
+      alert("Navigator clipboard is missing, can not to copy output.");
+      return;
+    }
+
+    navigator.clipboard.writeText(currentOutput.value);
+  }, []);
 
   return (
-    <div className='App'>
-      <Header />
+    <div className='converter-page page' id='converter'>
+      <form onSubmit={handleSubmit(convertHandler)}>
+        <div
+          className={["general__container", isInitialView ? "initial" : ""]
+            .join(" ")
+            .trim()}
+        >
+          <div className='input__container'>
+            <header>
+              <div className='logo'>
+                <span className='capital'>К</span>
+                <span>онвертер</span>
+              </div>
 
-      <main>
-        <div className='LeftSide'>
-          <div className='Content'>
-            <div className='Input Block'>
-              <div className='Container'>
-                <div className='Header'>
-                  <span className='Text'>из</span>
-                  <div className='FromTypes'>JSON</div>
-                </div>
-                <div className='Body'>
-                  <textarea
-                    className='TextArea'
-                    name='in'
-                    id='in'
-                    autoComplete='on'
-                    autoFocus
-                    value={input_value}
-                    onChange={inputChangeHandler}
-                    placeholder='Вставьте содержимое файла json или прикрепите файл'
-                  />
-                </div>
+              <div className='title'>из JSON</div>
+              <div className='manage'>
+                <input
+                  type='file'
+                  id='inputFile'
+                  className=''
+                  autoComplete='off'
+                  accept='.json,.txt'
+                  {...register("input-file", {
+                    onChange: (e) => {
+                      const files = e.target.files;
+                      const file = files[0];
+
+                      if (file) reader.readAsText(file, "utf-8");
+                      setValue("input-file", null);
+                    },
+                  })}
+                />
+                <label htmlFor='inputFile' className='upload-file-btn btn'>
+                  <div className='decoration'>
+                    <ClipIcon />
+                  </div>
+                  <div className='text'>Выбрать файл</div>
+                </label>
               </div>
-            </div>
+            </header>
             <div
-              className={`BetweenStripe ${
-                Boolean(input_value) ? "Active" : ""
-              }`}
+              className='textarea__wrapper'
+              title='Вставьте содержимое файла json или прикрепите файл'
+              data-hint='Исходный JSON'
             >
-              <div className='FirstStripe'></div>
-              <div className='Arrow'></div>
-              <div className='SecondStripe'></div>
-            </div>
-            <div className='Output Block'>
-              <div className='Container'>
-                <div className='Header'>
-                  <span className='Text'>в</span>
-                  <select id='ToTypes' defaultValue={"TypeScript"}>
-                    <option value='TypeScript'>TypeScript DTO</option>
-                    <option value='Another'>Another</option>
-                  </select>
-                  <button
-                    className='Download Button'
-                    disabled={!Boolean(output_value)}
-                    onClick={download}
-                  >
-                    <div className='Icon'></div>
-                    <span className='Title'>Скачать</span>
-                  </button>
-                  <button
-                    className='Copy Button'
-                    disabled={!Boolean(output_value)}
-                    onClick={copy}
-                  >
-                    <div className='Icon'>
-                      <img
-                        className='Iconsvg'
-                        src={copiedpic}
-                        alt='Иконка копирования'
-                      />
-                    </div>
-                    <span className='Title'>{copy_state}</span>
-                  </button>
-                </div>
-                <div className='Body'>
-                  <textarea
-                    className='TextArea'
-                    name='out'
-                    id='output'
-                    autoComplete='on'
-                    readOnly
-                    value={output_value}
-                    placeholder='После конвертации вы увидите здесь результат'
-                  />
-                </div>
-              </div>
+              <textarea
+                onFocus={() => setIsInitialView(false)}
+                {...register("input-json", {
+                  required: "The input can not be blank.",
+                })}
+              />
             </div>
           </div>
-          <div className='Footer'>
-            <button
-              className='Convert Button Inactive'
-              onClick={footerConvertHandler}
-              disabled={!Boolean(input_value)}
+
+          <div className='separate__bar'>
+            <div className='line-decoration'></div>
+            <div className='arrow-decoration'></div>
+            <div className='line-decoration'></div>
+          </div>
+
+          <div className='output__container'>
+            <header>
+              <div className='title'>в Type DTO</div>
+              <div className='manage'>
+                <button
+                  type='button'
+                  className='download-btn btn'
+                  onClick={downloadHandler}
+                  disabled={!isOutputExists}
+                >
+                  <div className='decoration'>
+                    <DownloadIcon />
+                  </div>
+                  <div className='text'>Скачать</div>
+                </button>
+
+                <a
+                  href='#'
+                  download='type-dto.ts'
+                  ref={downloadLinkRef}
+                  style={{ display: "none" }}
+                ></a>
+
+                <CopyButton onClick={copyHandler} disabled={!isOutputExists} />
+              </div>
+            </header>
+            <div
+              className='textarea__wrapper'
+              title='После конвертации вы увидите здесь результат'
+              data-hint='Результат'
             >
-              Конвертировать
-            </button>
+              <textarea
+                ref={outputAreaRef}
+                style={{ whiteSpace: "pre-wrap" }}
+                onChange={(e) => setIsOutputExists(Boolean(e.target.value))}
+                onFocus={() => setIsInitialView(false)}
+              />
+            </div>
+          </div>
+
+          <div className='submit__container'>
+            <button type='submit'>Конвертировать</button>
           </div>
         </div>
-        <div className='RightSide'>
-          <div className='Content'>
-            <div className='Container'>
-              <div className='Header'>Параметры конвертации</div>
-              <div className='Body'>
-                <div className='RadioButtonGroup'>
-                  <div className='TypeName'>
-                    Выберите представление перечислений
-                  </div>
-                  <div className='RadioButton'>
-                    <input
-                      type='radio'
-                      name='union'
-                      id='enum'
-                      onChange={() => {
-                        setEnum(true);
-                      }}
-                      checked={Boolean(enum_value)}
-                    />
-                    <label htmlFor='enum'>Enum</label>
-                  </div>
-                  <div className='RadioButton'>
-                    <input
-                      type='radio'
-                      name='union'
-                      id='union'
-                      onChange={() => {
-                        setEnum(false);
-                      }}
-                    />
-                    <label htmlFor='union'>Union</label>
-                  </div>
+
+        <SettingsBar>
+          <header>Параметры конвертации</header>
+
+          <div className='general-settings'>
+            <div className='radio-input__wrapper'>
+              <div className='title'>Выберите формат объединения</div>
+              <div className='radio-input__choices'>
+                <div>
+                  <input
+                    type='radio'
+                    name={INPUT_MAP.ENUM_OR_UNION.name}
+                    id={INPUT_MAP.ENUM_OR_UNION.isEnum}
+                    value={INPUT_MAP.ENUM_OR_UNION.isEnum}
+                    defaultChecked
+                    {...register(INPUT_MAP.ENUM_OR_UNION.name)}
+                  />
+
+                  <label htmlFor={INPUT_MAP.ENUM_OR_UNION.isEnum}>ENUM</label>
                 </div>
-                <div className='RadioButtonGroup BottomStripe'>
-                  <div className='TypeName'>Выберите тип объктов</div>
-                  <div className='RadioButton'>
-                    <input
-                      type='radio'
-                      name='type'
-                      id='interface'
-                      onChange={() => {
-                        setInterface(!interface_value);
-                      }}
-                      checked={Boolean(interface_value)}
-                    />
-                    <label htmlFor='interface'>Interface</label>
-                  </div>
-                  <div className='RadioButton'>
-                    <input
-                      type='radio'
-                      name='type'
-                      id='type'
-                      onChange={() => {
-                        setInterface(!interface_value);
-                      }}
-                    />
-                    <label htmlFor='type'>Type</label>
-                  </div>
+
+                <div>
+                  <input
+                    type='radio'
+                    name={INPUT_MAP.ENUM_OR_UNION.name}
+                    id={INPUT_MAP.ENUM_OR_UNION.isUnion}
+                    value={INPUT_MAP.ENUM_OR_UNION.isUnion}
+                    {...register(INPUT_MAP.ENUM_OR_UNION.name)}
+                  />
+
+                  <label htmlFor={INPUT_MAP.ENUM_OR_UNION.isUnion}>UNION</label>
                 </div>
-                <div className='AddittionOption'>
-                  <label>
-                    <input
-                      type='checkbox'
-                      name='classes'
-                      id='classes'
-                      onChange={() => {
-                        setSimilarclasses(!similarclasses_value);
-                      }}
-                    />
-                    <span>Обобщить похожие классы</span>
+              </div>
+            </div>
+            <div className='radio-input__wrapper'>
+              <div className='title'>Выберите формат выходящих данных</div>
+              <div className='radio-input__choices'>
+                <div>
+                  <input
+                    type='radio'
+                    name={INPUT_MAP.TYPE_OR_INTERFACE.name}
+                    id={INPUT_MAP.TYPE_OR_INTERFACE.isType}
+                    value={INPUT_MAP.TYPE_OR_INTERFACE.isType}
+                    defaultChecked
+                    {...register(INPUT_MAP.TYPE_OR_INTERFACE.name)}
+                  />
+
+                  <label htmlFor={INPUT_MAP.TYPE_OR_INTERFACE.isType}>
+                    TYPE
+                  </label>
+                </div>
+
+                <div>
+                  <input
+                    type='radio'
+                    name={INPUT_MAP.TYPE_OR_INTERFACE.name}
+                    id={INPUT_MAP.TYPE_OR_INTERFACE.isInterface}
+                    value={INPUT_MAP.TYPE_OR_INTERFACE.isInterface}
+                    {...register(INPUT_MAP.TYPE_OR_INTERFACE.name)}
+                  />
+
+                  <label htmlFor={INPUT_MAP.TYPE_OR_INTERFACE.isInterface}>
+                    INTERFACE
                   </label>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </main>
 
-      <Popup active={popup} setActive={setPopup} error={error} />
+          <div className='additional-settings'>
+            <div className='checkbox-input__wrapper'>
+              <input
+                type='checkbox'
+                id={INPUT_MAP.SUMMARIZE_SIMILAR_CLASSES.name}
+                {...register(INPUT_MAP.SUMMARIZE_SIMILAR_CLASSES.name)}
+              />
+              <label htmlFor={INPUT_MAP.SUMMARIZE_SIMILAR_CLASSES.name}>
+                Обобщить похожие классы
+              </label>
+            </div>
+            <div
+              className='checkbox-input__wrapper'
+              title='Temporary unavailable'
+            >
+              <input
+                type='checkbox'
+                id={INPUT_MAP.USE_CAMEL_CASE.name}
+                disabled
+              />
+              <label htmlFor={INPUT_MAP.USE_CAMEL_CASE.name}>
+                Изменить JSON.key на CamelCase
+              </label>
+            </div>
+          </div>
+
+          <footer>
+            <div className='version'>
+              <Link
+                to='https://github.com/ArtyomYaprintsev/converter/'
+                target='_blank'
+              >
+                v 1.2
+              </Link>
+            </div>
+          </footer>
+        </SettingsBar>
+      </form>
+
+      <ErrorPopup
+        isOpened={Boolean(error)}
+        content={error}
+        closePopup={() => setError("")}
+      />
     </div>
   );
 };

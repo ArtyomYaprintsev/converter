@@ -8,8 +8,6 @@ import {
 
 import ConverterPage from "./pages/Converter";
 
-import "./styles/App.css";
-
 const App = () => {
   return (
     <Router>
